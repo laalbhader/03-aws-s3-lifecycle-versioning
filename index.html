@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imran Kiani | AWS Cloud & DevOps Engineer</title>
+    <title>Muhammad Imran | AWS Cloud & DevOps Engineer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <img src="profile.png" alt="Imran Kiani" style="width:150px; border-radius:50%; border: 5px solid #fff; margin-bottom: 15px;">
-        <h1>Imran Kiani</h1>
+        <img src="profile.png" alt="Muhammad Imran" style="width:150px; border-radius:50%; border: 5px solid #fff; margin-bottom: 15px;">
+        <h1>Muhammad Imran</h1>
         <p>AWS Cloud & DevOps Engineer</p>
     </header>
 
@@ -26,7 +26,8 @@
             <h2>Technical Stack</h2>
             <div class="tech-stack">
                 <span class="badge">AWS CloudFront (CDN)</span>
-                <span class="badge">Amazon S3</span>
+                <span class="badge">Amazon S3 (Hosting & Lifecycle)</span>
+                <span class="badge">S3 Bucket Versioning</span>
                 <span class="badge">Terraform (IaC)</span>
                 <span class="badge">GitHub Actions (CI/CD)</span>
                 <span class="badge">IAM & OAC Security</span>
@@ -35,10 +36,26 @@
         </section>
 
         <section>
+            <h2>Data Resilience & Disaster Recovery (S3 Versioning)</h2>
+            <p>To ensure high availability and protect the production environment against accidental deletions or malicious overwrites, I enabled <strong>Amazon S3 Bucket Versioning</strong> via Terraform.</p>
+            <p>Every time a new artifact or deployment is pushed through the CI/CD pipeline, S3 automatically keeps track of older iterations. This guarantees a robust <strong>Rollback Strategy</strong>—in the event of a faulty deployment, the website can be restored to a previous stable state within seconds, minimizing downtime and maintaining business continuity.</p>
+        </section>
+
+        <section>
+            <h2>Cost Optimization & Automated Governance (S3 Lifecycle)</h2>
+            <p>While versioning is critical for data safety, keeping infinite historical versions can lead to unnecessary storage costs. To counter this, I implemented an automated <strong>S3 Lifecycle Policy</strong> configured entirely through code:</p>
+            <ul>
+                <li><strong>Noncurrent Version Expiration:</strong> Historical or older versions of the website's files are automatically and permanently purged after <strong>30 days</strong>, ensuring we only pay for what we reasonably need.</li>
+                <li><strong>Multipart Upload Cleanup:</strong> Any incomplete or interrupted file uploads are automatically aborted and cleaned up after <strong>7 days</strong>, eliminating hidden storage overhead.</li>
+            </ul>
+            <p>This automated tiering aligns perfectly with the <strong>AWS Well-Architected Framework</strong> under the Cost Optimization pillar.</p>
+        </section>
+
+        <section>
             <h2>Automated CI/CD Pipeline (The Power of DevOps)</h2>
             <p>This website is integrated with a sophisticated <strong>Continuous Integration and Continuous Deployment (CI/CD)</strong> pipeline. The main advantage of this setup is the elimination of manual uploads and human error.</p>
             <p>With <strong>GitHub Actions</strong>, any change I make to the code is automatically tested and synced to the AWS Cloud. I can update my entire global web presence with just <strong>three simple commands</strong>:</p>
-            <ul style="background: #f0f0f0; padding: 15px; border-radius: 8px; font-family: monospace;">
+            <ul style="background: #f0f0f0; padding: 15px; border-radius: 8px; font-family: monospace; color: #333;">
                 <li>1. git add .</li>
                 <li>2. git commit -m "Update website"</li>
                 <li>3. git push origin main</li>
@@ -51,14 +68,14 @@
             <ul>
                 <li><strong>Security:</strong> Origin Access Control (OAC) ensures that the S3 bucket is completely private, making CloudFront the only gateway.</li>
                 <li><strong>Performance:</strong> Content is cached at AWS Edge locations worldwide, reducing load times significantly.</li>
-                <li><strong>Cost-Efficiency:</strong> Serverless architecture ensures that the cost is only incurred based on actual traffic.</li>
+                <li><strong>Cost-Efficiency & Sustainability:</strong> Serverless architecture combined with strict lifecycle governance ensures zero waste and optimal pricing.</li>
             </ul>
         </section>
     </div>
 
     <footer>
-        <p>© 2026 Designed & Deployed by Imran Kiani using Terraform</p>
+        <p>© 2026 Designed & Deployed by Muhammad Imran using Terraform</p>
     </footer>
 
 </body>
-</html>       
+</html>
