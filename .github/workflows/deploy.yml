@@ -1,27 +1,33 @@
-# =============================================================================
+# ==============================================================================
+# Dynamic Build and Deployment Status Badges for Muhammad Imran
+# Generated to provide real-time pipeline status direct on GitHub Repository.
+# ==============================================================================
+# --- DYNAMIC BADGES (ADD TO README.md: !\[Build Status\](https://img.shields.io/github/actions/workflow/status/Imran-Kiani/03-aws-s3-lifecycle-versioning/deploy.yml?branch=main&label=Build%20Status&style=for-the-badge&logo=github-actions&logoColor=white)) !\[Deploy Status\](https://img.shields.io/github/actions/workflow/status/Imran-Kiani/03-aws-s3-lifecycle-versioning/deploy.yml?branch=main&label=Deploy%20Status&style=for-the-badge&logo=github-actions&logoColor=white) ---
+
+# ==============================================================================
 # SECTION: 1. CI/CD AUTOMATION TRIGGER & WORKFLOW ORCHESTRATION
 # PURPOSE: Configures the pipeline execution rules, specifically mapping code
 #          delivery events on the stable production branch to initiate tasks.
-# =============================================================================
+# ==============================================================================
 on:
   push:
     branches:
       - main
 
-# =============================================================================
+# ==============================================================================
 # SECTION: 2. AUTOMATION RUNTIME ENVIRONMENT (RUNNER)
 # PURPOSE: Allocates an isolated hosted compute environment (Ubuntu Virtual Machine)
 #          to execute the sequential steps of the build and deployment matrix.
-# =============================================================================
+# ==============================================================================
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-# =============================================================================
+# ==============================================================================
 # SECTION: 3. RUNTIME INITIALIZATION & SECURE AWS AUTHENTICATION
 # PURPOSE: Clones the codebase into the local workspace and injects encrypted
 #          GitHub Secrets into the runner environment to authenticate with AWS.
-# =============================================================================
+# ==============================================================================
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -33,15 +39,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # =============================================================================
-      # SECTION: 4. PRODUCTION REPOSITORY SYNCHRONIZATION (DEPLOYMENT)
-      # PURPOSE: Executes the AWS CLI S3 Sync operation to securely copy updated assets
-      #          directly to the production bucket while filtering redundant files.
-      # =============================================================================
+# ==============================================================================
+# SECTION: 4. PRODUCTION REPOSITORY SYNCHRONIZATION (DEPLOYMENT)
+# PURPOSE: Executes the AWS CLI S3 Sync operation to securely copy updated assets
+#          directly to the production bucket while filtering redundant files.
+# ==============================================================================
       - name: Sync Updated Files to S3
-        # run: aws s3 sync . s3://imran-kiani-portfolio-786 --exclude ".git*" --exclude "*.tf*"
-
-
+        run: |
+          aws s3 sync . s3://imran-kiani-portfolio-786 --exclude ".git*" --exclude "*.tf*"
 
 # ==============================================================================
 # SECTION: 5. CLOUDFRONT GLOBAL CACHE INVALIDATION (PURGE)
@@ -50,4 +55,4 @@ jobs:
 # ==============================================================================
       - name: Invalidate CloudFront Cache
         run: |
-              aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
