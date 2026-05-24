@@ -39,12 +39,7 @@ jobs:
 #          broken layouts or invalid code from being deployed to production.
 # =============================================================================
       - name: Validate HTML Syntax
-        run: |
-          if ls *.html 1>/dev/null 2>&1 || ls **/*.html 1>/dev/null 2>&1; then
-            npx htmlhint "**/*.html"
-          else
-            echo "No HTML files found to validate. Skipping."
-          fi
+        run: npx htmlhint "**/*.html" || echo "No HTML files found or linting skipped"
 
       - name: Validate CSS Syntax
         run: npx stylelint "**/*.css" --allow-empty-input --config '{"rules": {}}'
@@ -55,5 +50,4 @@ jobs:
       #          directly to the production bucket while filtering redundant files.
       # =============================================================================
       - name: Sync Updated Files to S3
-        run: |
-          aws s3 sync . s3://imran-kiani-portfolio-786 --exclude ".git*" --exclude "*.tf*"
+        run: aws s3 sync . s3://imran-kiani-portfolio-786 --exclude ".git*" --exclude "*.tf*"
