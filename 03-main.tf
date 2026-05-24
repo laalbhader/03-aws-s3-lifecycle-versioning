@@ -1,3 +1,9 @@
+# =============================================================================
+# SECTION: STATIC WEBSITE STORAGE INFRASTRUCTURE
+# PURPOSE: Configures the core S3 bucket to host raw static website assets 
+#          with explicit naming conventions and resource tracking.
+# =============================================================================
+
 # 1. S3 Bucket Creation
 resource "aws_s3_bucket" "static_site" {
   bucket = var.bucket_name
@@ -7,8 +13,15 @@ resource "aws_s3_bucket" "static_site" {
   }
 }
 
+
+# =============================================================================
+# SECTION: ORIGIN ACCESS CONTROL (OAC) SECURITY
+# PURPOSE: Defines secure authentication parameters for CloudFront to establish
+#          trusted, isolated network paths directly into the S3 origin.
+# =============================================================================
+
+# Create CloudFront Origin Access Control (OAC) Setup
 # 2. Origin Access Control (OAC)
-# یہ کلاؤڈ فرنٹ کو ایس تھری تک رسائی دیتا ہے تاکہ ایس تھری کو پبلک نہ کرنا پڑے
 resource "aws_cloudfront_origin_access_control" "oac" {
   name                              = "${var.bucket_name}-oac"
   origin_access_control_origin_type = "s3"
@@ -16,6 +29,14 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   signing_protocol                  = "sigv4"
 }
 
+
+# =============================================================================
+# SECTION: GLOBAL CONTENT DELIVERY NETWORK (CDN)
+# PURPOSE: Provisions edge routing, cache policies, and SSL delivery paths 
+#          to speed up content load times globally via AWS CloudFront.
+# =============================================================================
+
+# Create Cloudfront Origin Access Control (OAC)
 # 3. CloudFront Distribution
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
@@ -58,6 +79,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 }
 
+
+# =============================================================================
+# SECTION: EDGE ACQUISITION ACCESS POLICY
+# PURPOSE: Modifies S3 bucket access control to exclusively authorize GetObject
+#          operations originating from the verified CloudFront OAC identity.
+# =============================================================================
+
+# Configure S3 Bucket Policy
 # 4. S3 Bucket Policy (OAC کو اجازت دینا)
 resource "aws_s3_bucket_policy" "cdn_oac_policy" {
   bucket = aws_s3_bucket.static_site.id
