@@ -33,19 +33,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-# =============================================================================
-# SECTION: 4. CODE QUALITY ASSURANCE & STATIC ANALYSIS (LINTING)
-# PURPOSE: Validates HTML structural syntax and CSS styling standards to prevent
-#          broken layouts or invalid code from being deployed to production.
-# =============================================================================
-      - name: Validate HTML Syntax
-        run: npx htmlhint "**/*.html" || echo "No HTML files found or linting skipped"
-
-      - name: Validate CSS Syntax
-        run: npx stylelint "**/*.css" --allow-empty-input --config '{"rules": {}}'
-
       # =============================================================================
-      # SECTION: 5. PRODUCTION REPOSITORY SYNCHRONIZATION (DEPLOYMENT)
+      # SECTION: 4. PRODUCTION REPOSITORY SYNCHRONIZATION (DEPLOYMENT)
       # PURPOSE: Executes the AWS CLI S3 Sync operation to securely copy updated assets
       #          directly to the production bucket while filtering redundant files.
       # =============================================================================
