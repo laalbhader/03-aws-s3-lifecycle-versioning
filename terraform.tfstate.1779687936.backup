@@ -1,0 +1,39 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.8",
+  "serial": 54,
+  "lineage": "38098ad2-75e0-2d10-5049-83994bc3577a",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_iam_user",
+      "name": "deployer",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::835938641807:user/s3-portfolio-deployer",
+            "force_destroy": false,
+            "id": "s3-portfolio-deployer",
+            "name": "s3-portfolio-deployer",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {},
+            "unique_id": "AIDA4FIOTM6HZMLAQT5ZX"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "835938641807",
+            "name": "s3-portfolio-deployer"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

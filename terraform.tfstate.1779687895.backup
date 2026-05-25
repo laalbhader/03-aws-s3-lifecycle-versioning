@@ -1,0 +1,144 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.8",
+  "serial": 53,
+  "lineage": "38098ad2-75e0-2d10-5049-83994bc3577a",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_iam_user",
+      "name": "deployer",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::835938641807:user/s3-portfolio-deployer",
+            "force_destroy": false,
+            "id": "s3-portfolio-deployer",
+            "name": "s3-portfolio-deployer",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {},
+            "unique_id": "AIDA4FIOTM6HZMLAQT5ZX"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "835938641807",
+            "name": "s3-portfolio-deployer"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "static_site",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::imran-kiani-portfolio-786",
+            "bucket": "imran-kiani-portfolio-786",
+            "bucket_domain_name": "imran-kiani-portfolio-786.s3.amazonaws.com",
+            "bucket_namespace": "global",
+            "bucket_prefix": "",
+            "bucket_region": "eu-north-1",
+            "bucket_regional_domain_name": "imran-kiani-portfolio-786.s3.eu-north-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": false,
+            "grant": [
+              {
+                "id": "8e35bc9f6e708c844e14b37cd814befe1cb19ffea845b60294572c2b6b58259f",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3BAZG2TWCNX0D",
+            "id": "imran-kiani-portfolio-786",
+            "lifecycle_rule": [
+              {
+                "abort_incomplete_multipart_upload_days": 1,
+                "enabled": true,
+                "expiration": [
+                  {
+                    "date": "",
+                    "days": 1,
+                    "expired_object_delete_marker": false
+                  }
+                ],
+                "id": "DeleteEverything",
+                "noncurrent_version_expiration": [
+                  {
+                    "days": 1
+                  }
+                ],
+                "noncurrent_version_transition": [],
+                "prefix": "",
+                "tags": {},
+                "transition": []
+              }
+            ],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "eu-north-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "Name": "saffron-spider-portfolio"
+            },
+            "tags_all": {
+              "Name": "saffron-spider-portfolio"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "835938641807",
+            "bucket": "imran-kiani-portfolio-786",
+            "region": "eu-north-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

@@ -1,12 +1,13 @@
 # =============================================================================
 # SECTION: STATIC WEBSITE STORAGE INFRASTRUCTURE
-# PURPOSE: Configures the core S3 bucket to host raw static website assets 
-#          with explicit naming conventions and resource tracking.
+# PURPOSE: Configures the core S3 bucket with force destroy enabled
+#          to allow smooth, automated cleanups during terraform destroy.
 # =============================================================================
 
 # 1. S3 Bucket Creation
 resource "aws_s3_bucket" "static_site" {
-  bucket = var.bucket_name
+  bucket        = var.bucket_name
+  force_destroy = true # Forces deletion of all current objects during destroy
 
   tags = {
     Name = var.project_name
@@ -20,8 +21,7 @@ resource "aws_s3_bucket" "static_site" {
 #          trusted, isolated network paths directly into the S3 origin.
 # =============================================================================
 
-# Create CloudFront Origin Access Control (OAC) Setup
-# 2. Origin Access Control (OAC)
+# 2. Origin Access Control (OAC) Setup
 resource "aws_cloudfront_origin_access_control" "oac" {
   name                              = "${var.bucket_name}-oac"
   origin_access_control_origin_type = "s3"
@@ -36,7 +36,6 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 #          to speed up content load times globally via AWS CloudFront.
 # =============================================================================
 
-# Create Cloudfront Origin Access Control (OAC)
 # 3. CloudFront Distribution
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
@@ -86,8 +85,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 #          operations originating from the verified CloudFront OAC identity.
 # =============================================================================
 
-# Configure S3 Bucket Policy
-# 4. S3 Bucket Policy (OAC کو اجازت دینا)
+# 4. S3 Bucket Policy (Granting Access to CloudFront OAC)
 resource "aws_s3_bucket_policy" "cdn_oac_policy" {
   bucket = aws_s3_bucket.static_site.id
   policy = jsonencode({
